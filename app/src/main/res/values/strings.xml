@@ -1,0 +1,55 @@
+<resources>
+    <string name="app_name">FavDish</string>
+    <string name="title_all_dishes">All</string>
+    <string name="title_favourite_dishes">Favourite</string>
+    <string name="title_random_dish">Random</string>
+    <string name="add_dish">Add Dish</string>
+    <string name="fragment_dish_details">Dish Details</string>
+    <string name="image_contentDescription">image</string>
+    <string name="lbl_title">Title</string>
+    <string name="lbl_type">Type</string>
+    <string name="lbl_category">Category</string>
+    <string name="lbl_ingredients">Ingredients</string>
+    <string name="lbl_cooking_time_in_minutes">Cooking Time In Minutes</string>
+    <string name="lbl_direction_to_cook">Direction To Cook</string>
+    <string name="lbl_add_dish">ADD DISH</string>
+    <string name="select_image_action">Select Image Action</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+
+    <string name="label_no_dishes_added_yet">No dishes added yet!!!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="lbl_estimate_cooking_time">The approx time required to cook the dish is %1$s minutes.</string>
+    <string name="lbl_no_favourite_dishes_added_yet">No Favourite dishes added yet</string>
+    <string name="menu_more_edit_dish">Edit Dish</string>
+
+    <string name="action_edit_dish">EDIT DISH</string>
+    <string name="action_delete_dish">DELETE DISH</string>
+
+
+    <string name="title_add_dish">Add Dish</string>
+    <string name="title_edit_dish">Edit Dish</string>
+    <string name="lbl_update_dish">UPDATE DISH</string>
+
+    <string name="title_delete_dish">Delete Dish</string>
+    <string name="msg_delete_dish_dialog">Are you sure you wants to delete %1$s.</string>
+    <string name="lbl_yes">Yes</string>
+    <string name="lbl_no">No</string>
+
+    <string name="action_filter_dishes">Filter Dishes</string>
+    <string name="title_select_item_to_filter">SELECT ITEM TO FILTER</string>
+
+    <string name="lbl_dishes_not_fount">No %1$s Dishes found.</string>
+
+    <string name="msg_already_added_to_favourite">%1$s is Already added to Favourite</string>4
+    <string name="msg_added_to_favourite_dishes">Added to Favorite Dishes</string>
+    <string name="msg_please_wait">Please wait</string>
+
+    <string name="action_share_dish">Share Dish</string>
+
+    <string name="notification_title">Checkout new dish recipes</string>
+    <string name="notification_subtitle">Tap for more details</string>
+
+</resources>
