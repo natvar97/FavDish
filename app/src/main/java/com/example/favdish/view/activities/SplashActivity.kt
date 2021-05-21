@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
@@ -18,10 +19,10 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-            //for android R and above
-            window.insetsController?.hide(WindowInsets.Type.statusBars())
-        } else {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+//            //for android R and above
+//            window.insetsController?.hide(WindowInsets.Type.statusBars())
+//        } else {
 
             //setting the flags for full screen
             @Suppress("DEPRECATION")
@@ -29,7 +30,7 @@ class SplashActivity : AppCompatActivity() {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN
             )
-        }
+//        }
 
         //initializing the splash activity binding
         val splashBinding: ActivitySplashBinding = ActivitySplashBinding.inflate(layoutInflater)
