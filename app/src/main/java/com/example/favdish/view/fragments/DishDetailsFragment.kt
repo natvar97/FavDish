@@ -12,7 +12,6 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.palette.graphics.Palette
 import com.bumptech.glide.Glide
@@ -21,25 +20,24 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.favdish.R
-import com.example.favdish.application.FavDishApplication
 import com.example.favdish.databinding.FragmentDishDetailsBinding
 import com.example.favdish.model.entities.FavDish
 import com.example.favdish.utils.Constants
 import com.example.favdish.viewmodel.FavDishViewModel
-import com.example.favdish.viewmodel.FavDishViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.IOException
 import java.util.*
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class DishDetailsFragment : Fragment() {
 
     private var mBinding: FragmentDishDetailsBinding? = null
 
     private var mFavDishDetails: FavDish? = null
 
-    private val mFavDishViewModel: FavDishViewModel by viewModels {
-        FavDishViewModelFactory(((requireActivity().application) as FavDishApplication).repository)
-    }
+    @Inject
+    lateinit var mFavDishViewModel: FavDishViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

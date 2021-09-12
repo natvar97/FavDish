@@ -14,26 +14,4 @@ abstract class FavDishRoomDatabase : RoomDatabase() {
 
     abstract fun favDishDao() : FavDishDao
 
-    companion object {
-
-        @Volatile
-        private var INSTANCE: FavDishRoomDatabase? = null
-
-        fun getDatabase(context: Context): FavDishRoomDatabase {
-
-            return INSTANCE ?: synchronized(this) {
-                return Room.databaseBuilder(
-                    context.applicationContext,
-                    FavDishRoomDatabase::class.java,
-                    "fav_dish_database.db"
-                )
-                    .fallbackToDestructiveMigration()
-                    .build()
-            }
-
-        }
-
-    }
-
-
 }

@@ -15,8 +15,10 @@ import com.example.favdish.R
 import com.example.favdish.databinding.ActivityMainBinding
 import com.example.favdish.model.notification.NotificationWorker
 import com.example.favdish.utils.Constants
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.concurrent.TimeUnit
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mBinding: ActivityMainBinding

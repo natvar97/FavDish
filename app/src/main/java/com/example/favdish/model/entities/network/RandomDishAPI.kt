@@ -9,12 +9,12 @@ import retrofit2.http.Query
 interface RandomDishAPI {
 
     @GET(Constants.API_ENDPOINT)
-    fun getRandomDishes(
+    suspend fun getRandomDishes(
         @Query(Constants.API_KEY) apiKey: String,
         @Query(Constants.LIMIT_LICENSE) limitLicense: Boolean,
         @Query(Constants.TAGS) tags: String,
         @Query(Constants.NUMBER) number: Int
-    ): Single<RandomDish.Recipes>
+    ): RandomDish.Recipes
 
     /*
         here RandomDish.Recipes is the list of recipes which get data from api

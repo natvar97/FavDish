@@ -11,24 +11,28 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.favdish.R
-import com.example.favdish.application.FavDishApplication
 import com.example.favdish.databinding.FragmentRandomDishBinding
 import com.example.favdish.model.entities.FavDish
 import com.example.favdish.model.entities.RandomDish
 import com.example.favdish.utils.Constants
 import com.example.favdish.viewmodel.FavDishViewModel
-import com.example.favdish.viewmodel.FavDishViewModelFactory
 import com.example.favdish.viewmodel.RandomDishViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class RandomDishFragment : Fragment() {
 
     private var mBinding: FragmentRandomDishBinding? = null
-    private lateinit var mRandomDishViewModel: RandomDishViewModel
+
+    @Inject
+    lateinit var mRandomDishViewModel: RandomDishViewModel
+
+    @Inject
+    lateinit var mFavDishViewModel: FavDishViewModel
 
     private var mProgressOptional: Dialog? = null
 
@@ -58,7 +62,6 @@ class RandomDishFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mRandomDishViewModel = ViewModelProvider(this).get(RandomDishViewModel::class.java)
         mRandomDishViewModel.getRandomRecipeFromAPI()
 
         randomDishViewModelObserver()
@@ -72,9 +75,9 @@ class RandomDishFragment : Fragment() {
     private fun randomDishViewModelObserver() {
         mRandomDishViewModel.randomDishResponse.observe(
             viewLifecycleOwner,
-            Observer { randomDishResponse ->
+            { randomDishResponse ->
                 randomDishResponse?.let {
-
+                    Log.i("random dish response", "$randomDishResponse")
                     if (mBinding!!.srlRandomDish.isRefreshing) {
                         mBinding!!.srlRandomDish.isRefreshing = false
                     }
@@ -187,10 +190,6 @@ class RandomDishFragment : Fragment() {
                     recipe.instructions,
                     true
                 )
-
-                val mFavDishViewModel: FavDishViewModel by viewModels {
-                    FavDishViewModelFactory((requireActivity().application as FavDishApplication).repository)
-                }
 
                 mFavDishViewModel.insert(randomDish)
 

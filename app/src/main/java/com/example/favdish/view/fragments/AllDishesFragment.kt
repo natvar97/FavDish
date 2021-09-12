@@ -7,12 +7,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.favdish.R
-import com.example.favdish.application.FavDishApplication
 import com.example.favdish.databinding.DialogCustomListBinding
 import com.example.favdish.databinding.FragmentAllDishesBinding
 import com.example.favdish.model.entities.FavDish
@@ -22,19 +20,21 @@ import com.example.favdish.view.activities.MainActivity
 import com.example.favdish.view.adapters.CustomListItemAdapter
 import com.example.favdish.view.adapters.FavDishAdapter
 import com.example.favdish.viewmodel.FavDishViewModel
-import com.example.favdish.viewmodel.FavDishViewModelFactory
+import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class AllDishesFragment : Fragment() {
 
     private lateinit var mBinding: FragmentAllDishesBinding
 
-    private lateinit var mFavDishAdapter: FavDishAdapter
+    @Inject
+    lateinit var mFavDishAdapter: FavDishAdapter
+
     private lateinit var mCustomListDialog: Dialog
 
-
-    private val favDishViewModel: FavDishViewModel by viewModels {
-        FavDishViewModelFactory((requireActivity().application as FavDishApplication).repository)
-    }
+    @Inject
+    lateinit var favDishViewModel: FavDishViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +55,7 @@ class AllDishesFragment : Fragment() {
 
         mBinding.rvDishesList.layoutManager = GridLayoutManager(requireActivity(), 2)
 
-        mFavDishAdapter = FavDishAdapter(this@AllDishesFragment)
+        mFavDishAdapter.addFragment(this@AllDishesFragment)
 
         mBinding.rvDishesList.adapter = mFavDishAdapter
 
@@ -65,12 +65,10 @@ class AllDishesFragment : Fragment() {
                     mBinding.rvDishesList.visibility = View.VISIBLE
                     mBinding.tvNoDishesAddedYet.visibility = View.GONE
                     mFavDishAdapter.updateList(it)
-
                 } else {
                     mBinding.tvNoDishesAddedYet.visibility = View.VISIBLE
                     mBinding.rvDishesList.visibility = View.GONE
                 }
-
             }
         })
     }

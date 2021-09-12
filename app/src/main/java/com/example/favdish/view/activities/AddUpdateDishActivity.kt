@@ -18,7 +18,6 @@ import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
@@ -39,7 +38,6 @@ import com.example.favdish.model.entities.FavDish
 import com.example.favdish.utils.Constants
 import com.example.favdish.view.adapters.CustomListItemAdapter
 import com.example.favdish.viewmodel.FavDishViewModel
-import com.example.favdish.viewmodel.FavDishViewModelFactory
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -48,12 +46,15 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.listener.single.PermissionListener
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import java.io.OutputStream
 import java.util.*
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
 
     private lateinit var mBinding: ActivityAddUpdateDishBinding
@@ -62,9 +63,8 @@ class AddUpdateDishActivity : AppCompatActivity(), View.OnClickListener {
 
     private var mEditDishDetails: FavDish? = null
 
-    private val favDishViewModel: FavDishViewModel by viewModels {
-        FavDishViewModelFactory((application as FavDishApplication).repository)
-    }
+    @Inject
+    lateinit var favDishViewModel: FavDishViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

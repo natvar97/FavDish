@@ -7,8 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.favdish.model.database.FavDishRepository
 import com.example.favdish.model.entities.FavDish
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class FavDishViewModel(
+class FavDishViewModel @Inject constructor(
     private val repository: FavDishRepository
 ) : ViewModel() {
 

@@ -3,8 +3,9 @@ package com.example.favdish.model.database
 import androidx.annotation.WorkerThread
 import com.example.favdish.model.entities.FavDish
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class FavDishRepository(
+class FavDishRepository @Inject constructor(
     private val favDishDao: FavDishDao
 ) {
 

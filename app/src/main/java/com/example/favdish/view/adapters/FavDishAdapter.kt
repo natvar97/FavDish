@@ -15,12 +15,13 @@ import com.example.favdish.utils.Constants
 import com.example.favdish.view.activities.AddUpdateDishActivity
 import com.example.favdish.view.fragments.AllDishesFragment
 import com.example.favdish.view.fragments.FavouriteDishesFragment
+import javax.inject.Inject
 
-class FavDishAdapter(
-    private val fragment: Fragment,
-) : RecyclerView.Adapter<FavDishAdapter.FavDishViewHolder>() {
+class FavDishAdapter @Inject constructor() : RecyclerView.Adapter<FavDishAdapter.FavDishViewHolder>() {
 
     private var dishesList: List<FavDish> = listOf()
+
+    lateinit var mFragment: Fragment
 
     class FavDishViewHolder(itemView: ItemDishLayoutBinding) :
         RecyclerView.ViewHolder(itemView.root) {
@@ -31,43 +32,43 @@ class FavDishAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavDishViewHolder {
         val binding: ItemDishLayoutBinding = ItemDishLayoutBinding
-            .inflate(LayoutInflater.from(fragment.context), parent, false)
+            .inflate(LayoutInflater.from(mFragment.context), parent, false)
         return FavDishViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: FavDishViewHolder, position: Int) {
         val dish = dishesList[position]
 
-        Glide.with(fragment)
+        Glide.with(mFragment)
             .load(dish.image)
             .into(holder.ivDishImage)
 
         holder.tvDishTitle.text = dish.title
 
         holder.itemView.setOnClickListener {
-            if (fragment is AllDishesFragment) {
-                fragment.dishDetails(dish)
+            if (mFragment is AllDishesFragment) {
+                (mFragment as AllDishesFragment).dishDetails(dish)
             }
-            if (fragment is FavouriteDishesFragment) {
-                fragment.favDishDetails(dish)
+            if (mFragment is FavouriteDishesFragment) {
+                (mFragment as FavouriteDishesFragment).favDishDetails(dish)
             }
         }
 
         holder.ibMore.setOnClickListener {
 
-            val popUp = PopupMenu(fragment.context, holder.ibMore)
+            val popUp = PopupMenu(mFragment.context, holder.ibMore)
             popUp.menuInflater.inflate(R.menu.menu_adapter, popUp.menu)
 
             popUp.setOnMenuItemClickListener {
                 if (it.itemId == R.id.action_edit_dish) {
                     val intent =
-                        Intent(fragment.requireActivity(), AddUpdateDishActivity::class.java)
+                        Intent(mFragment.requireActivity(), AddUpdateDishActivity::class.java)
                     intent.putExtra(Constants.EXTRA_DISH_DETAILS, dish)
-                    fragment.requireActivity().startActivity(intent)
+                    mFragment.requireActivity().startActivity(intent)
 
                 } else if (it.itemId == R.id.action_delete_dish) {
-                    if (fragment is AllDishesFragment) {
-                        fragment.deleteFavDish(dish)
+                    if (mFragment is AllDishesFragment) {
+                        (mFragment as AllDishesFragment).deleteFavDish(dish)
                     }
                 }
                 true
@@ -77,9 +78,9 @@ class FavDishAdapter(
 
 
 
-        if (fragment is AllDishesFragment) {
+        if (mFragment is AllDishesFragment) {
             holder.ibMore.visibility = View.VISIBLE
-        } else if (fragment is FavouriteDishesFragment) {
+        } else if (mFragment is FavouriteDishesFragment) {
             holder.ibMore.visibility = View.GONE
         }
     }
@@ -92,4 +93,9 @@ class FavDishAdapter(
         dishesList = list
         notifyDataSetChanged()
     }
+
+    fun addFragment(fragment: Fragment) {
+        mFragment = fragment
+    }
+
 }
